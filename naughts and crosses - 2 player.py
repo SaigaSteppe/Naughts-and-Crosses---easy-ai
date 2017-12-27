@@ -25,60 +25,61 @@ def check_win(positions):
 
 def game(tile):
     available = [1,2,3,4,5,6,7,8,9]
-    player_positions = []
-    computer_positions = []
+    player1_positions = []
+    player2_positions = []
     turn_count = 1
 
-    while 1 != 2:
+    while True:
         try:
+            #Player 1's turn
             if turn_count % 2 != 0:
                 print("="*30)
                 print("Player 1's(X) turn")
-                player_choice = int(input("Enter a position: "))
-                if player_choice == 0 or player_choice in computer_positions or player_choice in player_positions:
+                player1_choice = int(input("Enter a position: "))
+                if player1_choice == 0 or player1_choice in player2_positions or player1_choice in player1_positions:
                     raise Exception
-                tile[player_choice] = "X"
-                player_positions.append(player_choice)
-                available.pop(available.index(player_choice))
+                tile[player1_choice] = "X"
+                player1_positions.append(player1_choice)
+                available.pop(available.index(player1_choice))
 
             #Player 2's turn
             if turn_count % 2 == 0:
                 print("="*30)
                 print("Player 2's(O) turn")
-                computer_choice = int(input("Enter a position: "))
-                if computer_choice == 0 or computer_choice in player_positions or computer_choice in computer_positions:
+                player2_choice = int(input("Enter a position: "))
+                if player2_choice == 0 or player2_choice in player1_positions or player2_choice in player2_positions:
                     raise Exception
-                tile[computer_choice] = "O"
-                computer_positions.append(computer_choice)
-                available.pop(available.index(computer_choice))
+                tile[player2_choice] = "O"
+                player2_positions.append(player2_choice)
+                available.pop(available.index(player2_choice))
     
             turn_count += 1    
             board(tile)
-            print("\nPlayer 1(X):",player_positions)
-            print("Player 2(O):",computer_positions)
+            print("\nPlayer 1(X):",player1_positions)
+            print("Player 2(O):",player2_positions)
 
             #check win
-            if check_win(player_positions) == True:
+            if check_win(player1_positions) == True:
                 print("PLAYER 1 WINS!")
                 break
-            if check_win(computer_positions) == True:
+            if check_win(player2_positions) == True:
                 print("PLAYER 2 WINS!")
                 break
-            if available == [] and check_win(player_positions) == False and check_win(computer_positions) == False:
+            if available == [] and check_win(player1_positions) == False and check_win(player2_positions) == False:
                 print("DRAW!")
                 break
         except:
             print("\nINVALID INPUT.")
             board(tile)
-            print("\nPlayer(X):",player_positions)
-            print("Computer(O):",computer_positions)
-            if check_win(player_positions) == True:
+            print("\nPlayer(X):",player1_positions)
+            print("player2(O):",player2_positions)
+            if check_win(player1_positions) == True:
                 print("PLAYER 1 WINS!")
                 break
-            if check_win(computer_positions) == True:
+            if check_win(player2_positions) == True:
                 print("PLAYER 2 WINS!")
                 break
-            if available == [] and check_win(player_positions) == False and check_win(computer_positions) == False:
+            if available == [] and check_win(player1_positions) == False and check_win(player2_positions) == False:
                 print("DRAW!")
                 break
 
